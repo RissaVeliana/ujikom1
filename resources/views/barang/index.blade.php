@@ -20,6 +20,7 @@
         <li class="header">MAIN NAVIGATION</li>
         <li><a href="{{route('home')}}"><i class="fa fa-home"></i> <span>Home</span></a></li>
         <li><a href="{{route('home')}}"><i class="glyphicon glyphicon-plus"></i> <span>Tambah Akun</span></a></li>
+        <li><a href="{{route('supplier.index')}}"><i class="glyphicon glyphicon-plus"></i> <span>Supplier</span></a></li>
         <li><a href="{{route('jenis.index')}}"><i class="fa fa-cart-plus"></i> <span>Jenis Barang</span></a></li>
         <li class="active"><a href="{{route('barang.index')}}"><i class="fa fa-cubes"></i> <span>Barang</span></a></li>
  
@@ -30,11 +31,14 @@
             <span class="pull-right-container">
               <span class="label label-primary pull-right">2</span>
             </span>
+            <ul class="treeview-menu">
             <li><a href="{{route('pembelian.index')}}"><i class="fa fa-circle-o text-red"></i> pembelian</a></li>
             <li><a href="{{route('penjualan.index')}}"><i class="fa fa-circle-o text-success"></i> penjualan</a></li>
-        </a>
+          </ul>
+          </a>
         </li>
-        
+      </ul>
+          
       
     </section>
     <!-- /.sidebar -->
@@ -45,17 +49,13 @@
     <section class="content">
       
       <div class="row">
-        <!-- Left col -->
+      
         <section class="col-lg-12">
           
-        
-          <!-- /.box (chat box) -->
-
-          <!-- TO DO List -->
           <div class="box box-primary">
             <div class="box-header">
               <i class="ion ion-clipboard"></i>
-              <a href="{{route('barang.create')}}" class="btn btn-primary pull-right"><i class="fa fa-plus" aria-hidden="true">  Tambah Barang</i></a>
+              <a href="{{route('barang.create')}}" class="btn btn-primary pull-right"><i class="fa fa-plus" aria-hidden="true"> Tambah Barang</i></a>
               <h2 class="box-title">Daftar Barang</h2>
 
               <br>
@@ -64,15 +64,16 @@
              $a = App\JenisBarang::all();
              @endphp
 
+               <div class="box-header">
              <a href="{{route('barang.index')}}" class="btn btn-success">Semua</a>
 
              @foreach($a as $data)
-             <a href="{{url('/filter',$data->id)}}" class="btn btn-warning">{{$data->jenis}}</a>
+             <a href="{{url('/filter',$data->id)}}" class="btn btn-danger">{{$data->jenis}}</a>
              @endforeach
-            
-            
             </div>
-            <!-- /.box-header -->
+            </div>
+
+           
             <div class="box-body">
             @foreach($barang as $data)
             <div class="col-md-3">
@@ -80,10 +81,10 @@
               <img src="{{asset('img/'.$data->foto)}}" style="height: 140px">
               <h4>{{$data->nama}} ({{$data->stock}})</h4>
               <p>{{$data->jenis}}</p>       
-             
                <form action="{{route('barang.destroy', $data->id)}}" method="post">
-                <a class="btn btn-warning btn-xs" href="/admin/barang/{{$data->id}}/edit">Edit</a>
-                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#detail{{$data->id}}">  Detail
+                <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#edit{{$data->id}}">Edit
+                </button>
+                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#detail{{$data->id}}">Detail
                 </button>
                   <input type="hidden" name="_method" value="DELETE">
                   <input type="hidden" name="_token">
@@ -91,48 +92,108 @@
                   {{csrf_field()}}
                 </form>
               </center>
+              </div>
             
-              <!-- Button trigger modal -->
+             
 
-
-        <!-- Modal -->
-          <div class="modal fade" id="detail{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"           aria-hidden="true">
+        <!-- Modal Edit -->
+          <div class="modal fade" id="edit{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"           aria-hidden="true">
           <div class="modal-dialog" role="document">
           <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Detail Barang</h5>
+            <div class="modal-header btn-primary">
+              <h4 class="modal-title" id="exampleModalLongTitle"><b>Edit Barang</b></h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-            <td><h3>Jenis Barang</h3> {{$data->jenis}}</td>
-            <h3>Merk Barang</h3> {{$data->nama}}
-            <h3>Stok Barang</h3> {{$data->stock}}
-            <h3>Harga Asli</h3> {{$data->harga_asli}}
-            <h3>Harga jual</h3>   {{$data->harga_jual}}
-              
-            
-            </div>
-          </div>
-          </div>
-          </div>
+            <div class="modal-body btn-success">
+            <form action="{{route('barang.update', $data->id)}}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_method" value="PUT">
+        <input type="hidden" name="_token" value="{{csrf_token()}}">
 
-            </div>
+        <div class="form-group">
+          <label class="control-lable">jenis Barang</label>
+          <select class="form-control" name="jb">
+            @foreach($barang as $data)
+            <option value="{{$data->id}}" selected="">{{$data->jenis}}</option>
             @endforeach
+          </select>
+        </div>
+
+
+        <div class="form-group">
+          <label class="control-lable">Nama Barang</label>
+          <input type="text" name="nama" class="form-control" value="{{$data->nama}}" required>
+        </div>
+
+        <div class="form-group">
+                <label class="control-label">Foto</label><br>
+                <img src="{{asset('img/'.$data->foto)}}"  width="120px" height="120px"> <br><br>
+                <input type="file" name="foto" >
+                
+              </div>
+
+        <div class="form-group">
+          <label class="control-lable">Stock</label>
+          <input type="text" name="stock" class="form-control" value="{{$data->stock}} " required>
+        </div>
+
+
+        <div class="form-group">
+          <label class="control-lable">Harga Asli</label>
+          <input type="text" name="ha" class="form-control" value="{{$data->harga_asli}}" required>
+        </div>
+
+
+        <div class="form-group">
+          <label class="control-lable">Harga Jual</label>
+          <input type="text" name="hj" class="form-control" value="{{$data->harga_jual}} " required>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Simpan</button>
+           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
+
+        </form>
             </div>
-
-            <!-- /.box-body -->
           </div>
-          <!-- /.box -->
+          </div>
+          </div>
 
+        <!-- Modal detail -->
+          <div class="modal fade" id="detail{{$data->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"           aria-hidden="true">
+          <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header btn-primary">
+              <h4 class="modal-title" id="exampleModalLongTitle"><b>Detail Barang</b></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body btn-success">
+            <h4>Jenis Barang</h4>  {{$data->jenis}}
+            <h4>Merk Barang</h4> {{$data->nama}}
+            <h4>Stok Barang</h4> {{$data->stock}}
+            <h4>Harga Asli</h4> {{$data->harga_asli}}
+            <h4>Harga jual</h4>   {{$data->harga_jual}}
+            </div>
+          </div>
+          </div>
+          </div>
+
+           
+            @endforeach
+
+
+          </div>
+
+           
+            </div>
         </section>
-        
-        <!-- right col -->
       </div>
-      <!-- /.row (main row) -->
-
-    </section>
-    <!-- /.content -->
+   </section>
 </div>
+   
 @endsection

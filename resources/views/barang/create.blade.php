@@ -22,6 +22,7 @@
         <li class="header">MAIN NAVIGATION</li>
         <li><a href="{{route('home')}}"><i class="fa fa-home"></i> <span>Home</span></a></li>
         <li><a href="{{route('home')}}"><i class="glyphicon glyphicon-plus"></i> <span>Tambah Akun</span></a></li>
+        <li><a href="{{route('supplier.index')}}"><i class="glyphicon glyphicon-plus"></i> <span>Supplier</span></a></li>
         <li><a href="{{route('jenis.index')}}"><i class="fa fa-cart-plus"></i> <span>Jenis Barang</span></a></li>
         <li  class="active"><a href="{{route('barang.index')}}"><i class="fa fa-cubes"></i> <span>Barang</span></a></li>
  
@@ -80,7 +81,7 @@
 
         <div class="form-group">
           <label class="control-lable">Foto Barang</label>
-          <input type="file" name="foto" class="form-control" required >
+          <input type="file" name="foto" class="form-control" required>
         </div>
 
         
