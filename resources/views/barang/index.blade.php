@@ -108,14 +108,14 @@
             </div>
             <div class="modal-body btn-success">
             <form action="{{route('barang.update', $data->id)}}" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="_method" value="PUT">
-        <input type="hidden" name="_token" value="{{csrf_token()}}">
+            <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" name="_token" value="{{csrf_token()}}">
 
         <div class="form-group">
           <label class="control-lable">jenis Barang</label>
-          <select class="form-control" name="jb">
-            @foreach($barang as $data)
-            <option value="{{$data->id}}" selected="">{{$data->jenis}}</option>
+          <select class="form-control" name="jb" value="{{$data->id_jenis}}" required>
+            @foreach($a as $datas)
+            <option value="{{$datas->id}}" <?php if ($data->id_jenis==$datas->id) echo "select" ?>> {{$datas->jenis}}</option>
             @endforeach
           </select>
         </div>
@@ -173,9 +173,6 @@
               </button>
             </div>
             <div class="modal-body btn-success">
-            <h4>Jenis Barang</h4>  {{$data->jenis}}
-            <h4>Merk Barang</h4> {{$data->nama}}
-            <h4>Stok Barang</h4> {{$data->stock}}
             <h4>Harga Asli</h4> {{$data->harga_asli}}
             <h4>Harga jual</h4>   {{$data->harga_jual}}
             </div>

@@ -47,6 +47,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
+
 <div class="row">
 	<center><h1>Transaksi Penjualan</h1><br></center>
 	<div class="col-md-8 col-md-offset-2">
@@ -55,7 +56,11 @@
 		<div class="panel-title" align="right">
 			<a href="{{URL::previous()}} ">Kembali</a></div></div>
 
+
+
 			<div class="panel-body">
+					@include('layouts._flash') 
+					
 				<form action="{{route('penjualan.store')}}" method="post"> 
 				{{csrf_field()}}
 				<div class="form-group">

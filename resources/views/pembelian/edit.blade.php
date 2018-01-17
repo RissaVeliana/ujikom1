@@ -53,7 +53,7 @@
 		<div class="panel panel-primary">
 		<div class="panel-heading">  
 		<div class="panel-title pull-right">
-			<a href="{{URL::previous()}}">Kembali</a></div></div>
+			<a href="{{URL::previous()}} ">Kembali</a></div></div>
 
 			<div class="panel-body">
 				<form action="{{route('pembelian.update', $f->id)}}" method="post">
@@ -109,7 +109,9 @@
 				</div>
 		</div>
 	</div>
+
 </div>
+
 </section>
 </div> 	
 @endsection

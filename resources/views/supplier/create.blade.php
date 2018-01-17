@@ -58,6 +58,15 @@
 			<a href="{{URL::previous()}} ">Kembali</a></div></div>
 
 			<div class="panel-body">
+
+      @if($errors->any())
+      <div class="flash alert-danger">
+        @foreach($errors->all() as $err)
+          <li><span>{{ $err }}</span></li>
+        @endforeach
+      </div>
+      @endif
+
 				<form action="{{route('supplier.store')}}" method="post"> 
 				{{csrf_field()}}
 

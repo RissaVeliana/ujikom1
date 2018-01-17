@@ -48,7 +48,8 @@
     
     <!-- Main content -->
    <section class="content">
-     
+     <h1>Selamat Datang Di Koperasi Smk Assalaam Bandung</h1>
+      
      
    </section>
     <!-- /.content -->

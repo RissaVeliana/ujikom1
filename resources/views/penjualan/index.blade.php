@@ -37,6 +37,9 @@
             <li  class="active"><a href="{{route('penjualan.index')}}"><i class="fa fa-circle-o text-success"></i> penjualan</a></li>
           
         </li>
+      </a>
+      </li>
+      </ul>
         
       
     </section>
@@ -91,6 +94,7 @@
 									{{csrf_field()}}
 								</form>
 							</td>
+
 						</tr>
 					@endforeach
 					</tbody>

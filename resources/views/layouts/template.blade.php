@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -88,7 +88,7 @@
                                             Logout
                                         </a>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        <form id="l ogout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
                 </div>
@@ -100,9 +100,11 @@
         </ul>
       </div>
     </nav>
+    
   </header>
-  
+
  @yield('content')
+
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
     </div>

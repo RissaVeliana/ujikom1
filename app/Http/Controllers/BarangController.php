@@ -86,8 +86,7 @@ class BarangController extends Controller
     {
         //
         $barang = Barang::findOrFail($id);
-        $jenis = JenisBarang::all();
-        return view('barang.edit', compact('barang','jenis'));
+        return view('barang.edit', compact('barang'));
     }
 
     /**
@@ -116,6 +115,8 @@ class BarangController extends Controller
         $barang->foto = $filename;
         $barang->save();
     }
+      
+    $barang->save();
     return redirect('/admin/barang');
         
        
